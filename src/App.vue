@@ -1,26 +1,51 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="app">
+    <h1>Weight Converter</h1>
+    <input v-model.number="weight" type="number" placeholder="Enter weight" />
+    <select v-model="unit">
+      <option value="pounds">Pounds</option>
+      <option value="kilograms">Kilograms</option>
+    </select>
+    <button @click="convert">Convert</button>
+    <p>{{ output }}</p>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
-</script>
+  data() {
+    return {
+      weight: null,
+      unit: "pounds",
+      output: "",
+    };
+  },
+  methods: {
+    poundsToKilograms(pounds) {
+      return pounds * 0.45359237;
+    },
+    kilogramsToPounds(kilograms) {
+      return kilograms / 0.45359237;
+    },
+    convert() {
+      let result;
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+      if (!isNaN(this.weight)) {
+        if (this.unit === "pounds") {
+          result = this.poundsToKilograms(this.weight);
+          this.output = `${this.weight} Pounds is equal to ${result.toFixed(
+            2
+          )} Kilograms`;
+        } else {
+          result = this.kilogramsToPounds(this.weight);
+          this.output = `${this.weight} Kilograms is equal to ${result.toFixed(
+            2
+          )} Pounds`;
+        }
+      } else {
+        this.output = "Please enter a valid weight";
+      }
+    },
+  },
+};
+</script>
