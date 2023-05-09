@@ -8,10 +8,7 @@
     </select>
     <button @click="convert">Convert</button>
     <p>{{ output }}</p>
-    <weight-barbell
-      :total-weight="convertedWeight"
-      v-if="convertedWeight > 0"
-    />
+    <weight-barbell :total-weight="weightInPounds" v-if="weightInPounds > 0" />
   </div>
 </template>
 
@@ -28,6 +25,28 @@ export default {
       unit: "pounds",
       output: "",
     };
+  },
+  computed: {
+    convertedWeight() {
+      let result;
+
+      if (!isNaN(this.weight)) {
+        if (this.unit === "pounds") {
+          result = this.poundsToKilograms(this.weight);
+        } else {
+          result = this.kilogramsToPounds(this.weight);
+        }
+      }
+
+      return result;
+    },
+    weightInPounds() {
+      if (this.unit === "pounds") {
+        return this.weight;
+      } else {
+        return this.kilogramsToPounds(this.weight);
+      }
+    },
   },
   methods: {
     poundsToKilograms(pounds) {
