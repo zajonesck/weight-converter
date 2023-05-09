@@ -8,11 +8,20 @@
     </select>
     <button @click="convert">Convert</button>
     <p>{{ output }}</p>
+    <weight-barbell
+      :total-weight="convertedWeight"
+      v-if="convertedWeight > 0"
+    />
   </div>
 </template>
 
 <script>
+import WeightBarbell from "./components/WeightBarbell.vue";
+
 export default {
+  components: {
+    WeightBarbell,
+  },
   data() {
     return {
       weight: null,
