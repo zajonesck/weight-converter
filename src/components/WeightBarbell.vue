@@ -43,7 +43,7 @@ export default {
   },
   data() {
     return {
-      plateSizes: [45, 35, 25, 10, 5, 2.5],
+      plateSizes: [25, 20, 15, 10, 5, 2.5, 1.25],
     };
   },
   computed: {
