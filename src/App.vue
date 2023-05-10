@@ -9,8 +9,9 @@
     <button @click="convert">Convert</button>
     <p>{{ output }}</p>
     <weight-barbell
-      :total-weight="weightInKilograms"
-      v-if="weightInKilograms > 0"
+      :total-weight="weight"
+      :unit="unit"
+      v-if="weight && weight > 0"
     />
   </div>
 </template>
