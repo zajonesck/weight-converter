@@ -19,7 +19,7 @@
     <div class="barbell-bar"></div>
     <div class="plates">
       <div
-        v-for="(plateCount, index) in plates"
+        v-for="(plateCount, index) in plates.reverse()"
         :key="index"
         class="plate-group"
       >
@@ -103,12 +103,12 @@ export default {
   top: 0;
 }
 
-.plate-25 {
+/* .plate-25 {
   height: 50px;
   width: 50px;
   background-color: #f00;
-}
-
+} */
+/* figure out how to diff the kgs and lbs that have the same numerical value and how to make the barbell mirrir each other*/
 .plate-45,
 .plate-20 {
   height: 50px;
