@@ -93,14 +93,16 @@ export default {
 
 .plate-group {
   position: relative;
+  display: flex;
 }
 
 .plate {
   border: 1px solid #555;
   border-radius: 50%;
-  position: absolute;
+  position: relative;
   top: 0;
 }
+
 .plate-25 {
   height: 50px;
   width: 50px;
