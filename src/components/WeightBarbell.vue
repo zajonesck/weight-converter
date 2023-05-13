@@ -3,6 +3,8 @@
 <template>
   <div class="barbell">
     <div class="barbell-side"></div>
+
+    <!-- Plate group for the left side -->
     <div class="plates">
       <div
         v-for="(plateCount, index) in plates"
@@ -16,20 +18,26 @@
         ></div>
       </div>
     </div>
+
     <div class="barbell-bar"></div>
+
+    <!-- Plate group for the right side, reversed -->
     <div class="plates">
       <div
-        v-for="(plateCount, index) in plates.reverse()"
+        v-for="(plateCount, index) in plates.slice().reverse()"
         :key="index"
         class="plate-group"
       >
         <div
           v-for="n in plateCount"
           :key="n"
-          :class="'plate plate-' + adjustedPlateSizes[index]"
+          :class="
+            'plate plate-' + adjustedPlateSizes[plates.length - 1 - index]
+          "
         ></div>
       </div>
     </div>
+
     <div class="barbell-side"></div>
   </div>
 </template>
