@@ -17,8 +17,8 @@
           :class="
             'plate plate-' +
             (this.unit === 'pounds'
-              ? adjustedPlateSizesLbs[plates.length - 1 - index]
-              : adjustedPlateSizesKg[plates.length - 1 - index])
+              ? adjustedPlateSizesLbs[plates.length - 1 - index] + '-lbs'
+              : adjustedPlateSizesKg[plates.length - 1 - index] + '-kg')
           "
         ></div>
       </div>
@@ -39,8 +39,8 @@
           :class="
             'plate plate-' +
             (this.unit === 'pounds'
-              ? adjustedPlateSizesLbs[index]
-              : adjustedPlateSizesKg[index])
+              ? adjustedPlateSizesLbs[index] + '-lbs'
+              : adjustedPlateSizesKg[index] + '-kg')
           "
         ></div>
       </div>
@@ -134,49 +134,82 @@ export default {
   top: 0;
 }
 
-/* .plate-25 {
+.plate-45-lbs {
   height: 50px;
   width: 50px;
-  background-color: #f00;
-} */
-/* figure out how to diff the kgs and lbs that have the same numerical value and how to make the barbell mirrir each other*/
-.plate-45,
-.plate-20 {
-  height: 50px;
-  width: 50px;
-  background-color: rgb(17, 0, 255);
+  background-color: rgb(43, 0, 255);
 }
 
-.plate-35,
-.plate-15 {
+.plate-35-lbs {
   height: 40px;
   width: 40px;
-  background-color: rgb(255, 238, 0);
+  background-color: rgb(255, 247, 0);
 }
 
-.plate-25,
-.plate-10 {
+.plate-25-lbs {
   height: 30px;
   width: 30px;
-  background-color: rgb(0, 255, 55);
+  background-color: rgb(20, 255, 3);
 }
 
-.plate-5,
-.plate-2\.5 {
-  height: 25px;
-  width: 25px;
-  background-color: #f00;
+.plate-10-lbs {
+  height: 30px;
+  width: 30px;
+  background-color: rgb(255, 255, 255);
 }
 
-.plate-1\.25 {
-  height: 10px;
-  width: 10px;
-  background-color: #f00;
-}
-
-.barbell-bar {
-  background-color: #333;
+.plate-5-lbs {
   height: 20px;
-  width: 200px;
+  width: 20px;
+  background-color: rgb(0, 0, 0);
+}
+
+.plate-2\.5-lbs {
+  height: 20px;
+  width: 20px;
+  background-color: rgb(100, 100, 100);
+}
+
+/* Kilogram plates */
+.plate-25-kg {
+  height: 50px;
+  width: 50px;
+  background-color: rgb(255, 4, 4);
+}
+
+.plate-20-kg {
+  height: 50px;
+  width: 50px;
+  background-color: rgb(43, 0, 255);
+}
+
+.plate-15-kg {
+  height: 40px;
+  width: 40px;
+  background-color: rgb(255, 247, 0);
+}
+
+.plate-10-kg {
+  height: 30px;
+  width: 30px;
+  background-color: rgb(20, 255, 3);
+}
+
+.plate-5-kg {
+  height: 30px;
+  width: 30px;
+  background-color: rgb(255, 255, 255);
+}
+
+.plate-2\.5-kg {
+  height: 20px;
+  width: 20px;
+  background-color: rgb(0, 0, 0);
+}
+
+.plate-1\.25-kg {
+  height: 20px;
+  width: 20px;
+  background-color: rgb(100, 100, 100);
 }
 </style>
