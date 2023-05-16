@@ -4,24 +4,7 @@
   <div class="barbell">
     <div class="barbell-side"></div>
 
-    <!-- Plate group for the left side -->
-    <div class="plates">
-      <div
-        v-for="(plateCount, index) in plates"
-        :key="index"
-        class="plate-group"
-      >
-        <div
-          v-for="n in plateCount"
-          :key="n"
-          :class="'plate plate-' + adjustedPlateSizes[index]"
-        ></div>
-      </div>
-    </div>
-
-    <div class="barbell-bar"></div>
-
-    <!-- Plate group for the right side, reversed -->
+    <!-- Plate group for the left side, reversed -->
     <div class="plates">
       <div
         v-for="(plateCount, index) in plates.slice().reverse()"
@@ -32,7 +15,32 @@
           v-for="n in plateCount"
           :key="n"
           :class="
-            'plate plate-' + adjustedPlateSizes[plates.length - 1 - index]
+            'plate plate-' +
+            (this.unit === 'pounds'
+              ? adjustedPlateSizesLbs[plates.length - 1 - index]
+              : adjustedPlateSizesKg[plates.length - 1 - index])
+          "
+        ></div>
+      </div>
+    </div>
+
+    <div class="barbell-bar"></div>
+
+    <!-- Plate group for the right side, original order -->
+    <div class="plates">
+      <div
+        v-for="(plateCount, index) in plates"
+        :key="index"
+        class="plate-group"
+      >
+        <div
+          v-for="n in plateCount"
+          :key="n"
+          :class="
+            'plate plate-' +
+            (this.unit === 'pounds'
+              ? adjustedPlateSizesLbs[index]
+              : adjustedPlateSizesKg[index])
           "
         ></div>
       </div>
@@ -43,6 +51,9 @@
 </template>
 
 <script>
+const LBS_TO_KG_RATIO = 0.453592;
+const KG_TO_LBS_RATIO = 2.20462;
+
 export default {
   props: {
     totalWeight: {
@@ -54,26 +65,38 @@ export default {
       required: true,
     },
   },
+  data() {
+    return {
+      plateSizesKg: [25, 20, 15, 10, 5, 2.5, 1.25],
+      plateSizesLbs: [45, 35, 25, 10, 5, 2.5],
+    };
+  },
   computed: {
-    adjustedPlateSizes() {
-      return this.unit === "pounds"
-        ? [45, 35, 25, 10, 5, 2.5]
-        : [25, 20, 15, 10, 5, 2.5, 1.25];
+    adjustedPlateSizesKg() {
+      return this.plateSizesKg.map(
+        (size) => size / (this.unit === "pounds" ? LBS_TO_KG_RATIO : 1)
+      );
+    },
+    adjustedPlateSizesLbs() {
+      return this.plateSizesLbs.map(
+        (size) => size * (this.unit === "kilograms" ? KG_TO_LBS_RATIO : 1)
+      );
     },
     plates() {
       const barWeight = this.unit === "pounds" ? 45 : 20;
       let remainingWeight = (this.totalWeight - barWeight) / 2;
       const plates = [];
+      const plateSizes =
+        this.unit === "pounds"
+          ? this.adjustedPlateSizesLbs
+          : this.adjustedPlateSizesKg;
 
-      if (remainingWeight < 0) {
-        return plates;
+      for (let size of plateSizes) {
+        while (remainingWeight >= size) {
+          plates.push(size);
+          remainingWeight -= size;
+        }
       }
-
-      this.adjustedPlateSizes.forEach((plateSize) => {
-        const plateCount = Math.floor(remainingWeight / plateSize);
-        remainingWeight -= plateCount * plateSize;
-        plates.push(plateCount);
-      });
 
       return plates;
     },
@@ -140,14 +163,14 @@ export default {
 
 .plate-5,
 .plate-2\.5 {
-  height: 20px;
-  width: 20px;
+  height: 25px;
+  width: 25px;
   background-color: #f00;
 }
 
 .plate-1\.25 {
-  height: 15px;
-  width: 15px;
+  height: 10px;
+  width: 10px;
   background-color: #f00;
 }
 
