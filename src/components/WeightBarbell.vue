@@ -2,51 +2,26 @@
 
 <template>
   <div class="barbell">
-    <div class="barbell-side"></div>
-
-    <!-- Plate group for the left side, reversed -->
+    <!-- One side of the barbell -->
+    <!-- Plate group -->
     <div class="plates">
       <div
-        v-for="(plateCount, index) in plates.slice().reverse()"
+        v-for="(plate, index) in plates.slice().reverse()"
         :key="index"
         class="plate-group"
       >
         <div
-          v-for="n in plateCount"
+          v-for="n in Array(plate.count).fill()"
           :key="n"
           :class="
             'plate plate-' +
-            (this.unit === 'pounds'
-              ? adjustedPlateSizesLbs[plates.length - 1 - index] + '-lbs'
-              : adjustedPlateSizesKg[plates.length - 1 - index] + '-kg')
+            (this.unit === 'pounds' ? plate.size + '-lbs' : plate.size + '-kg')
           "
-        ></div>
+        >
+          <span class="plate-weight">{{ plate.size }}</span>
+        </div>
       </div>
     </div>
-
-    <div class="barbell-bar"></div>
-
-    <!-- Plate group for the right side, original order -->
-    <div class="plates">
-      <div
-        v-for="(plateCount, index) in plates"
-        :key="index"
-        class="plate-group"
-      >
-        <div
-          v-for="n in plateCount"
-          :key="n"
-          :class="
-            'plate plate-' +
-            (this.unit === 'pounds'
-              ? adjustedPlateSizesLbs[index] + '-lbs'
-              : adjustedPlateSizesKg[index] + '-kg')
-          "
-        ></div>
-      </div>
-    </div>
-
-    <div class="barbell-side"></div>
   </div>
 </template>
 
@@ -92,9 +67,13 @@ export default {
           : this.adjustedPlateSizesKg;
 
       for (let size of plateSizes) {
+        let count = 0;
         while (remainingWeight >= size) {
-          plates.push(size);
+          count++;
           remainingWeight -= size;
+        }
+        if (count > 0) {
+          plates.push({ size, count });
         }
       }
 
@@ -105,19 +84,6 @@ export default {
 </script>
 
 <style scoped>
-.barbell {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 2rem;
-}
-
-.barbell-side {
-  background-color: #333;
-  height: 60px;
-  width: 30px;
-}
-
 .plates {
   display: flex;
 }
@@ -132,6 +98,15 @@ export default {
   border-radius: 50%;
   position: relative;
   top: 0;
+}
+
+.plate-weight {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #ffffff;
+  font-weight: bold;
 }
 
 .plate-45-lbs {

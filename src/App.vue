@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <h1>Weight Converter</h1>
+    <h1>Barbell Loader</h1>
     <input v-model.number="weight" type="number" placeholder="Enter weight" />
     <select v-model="unit">
       <option value="pounds">Pounds</option>
