@@ -81,3 +81,23 @@ export default {
   },
 };
 </script>
+
+<style>
+body {
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background-color: black;
+  color: white;
+  font-family: Arial, sans-serif; /* example of setting a default font */
+}
+
+/* You can also set these properties on your root component (e.g., #app for a Vue application) */
+
+#app {
+  justify-content: center;
+  align-items: center;
+  width: 80%; /* Adjust this as needed */
+}
+</style>

@@ -15,7 +15,10 @@
           :key="n"
           :class="
             'plate plate-' +
-            (this.unit === 'pounds' ? plate.size + '-lbs' : plate.size + '-kg')
+            (this.unit === 'pounds'
+              ? plate.size + '-lbs'
+              : plate.size + '-kg') +
+            (plate.collar ? ' collar' : '')
           "
         >
           <span class="plate-weight">{{ plate.size }}</span>
@@ -44,6 +47,7 @@ export default {
     return {
       plateSizesKg: [25, 20, 15, 10, 5, 2.5, 1.25],
       plateSizesLbs: [45, 35, 25, 10, 5, 2.5],
+      collarWeightKg: 2.5,
     };
   },
   computed: {
@@ -65,6 +69,11 @@ export default {
         this.unit === "pounds"
           ? this.adjustedPlateSizesLbs
           : this.adjustedPlateSizesKg;
+
+      if (this.unit === "kilograms" && this.totalWeight >= 25) {
+        remainingWeight -= this.collarWeightKg;
+        plates.push({ size: this.collarWeightKg, count: 1, collar: true }); // add collar
+      }
 
       for (let size of plateSizes) {
         let count = 0;
@@ -98,6 +107,12 @@ export default {
   border-radius: 50%;
   position: relative;
   top: 0;
+}
+
+.plate.collar {
+  height: 20px;
+  width: 20px;
+  background-color: rgb(255, 0, 255);
 }
 
 .plate-weight {
