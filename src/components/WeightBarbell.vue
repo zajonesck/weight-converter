@@ -103,12 +103,14 @@ export default {
 
 .plates {
   display: flex;
+  align-items: center;
 }
 
 .plate-group {
   position: relative;
   display: flex;
   flex-direction: row;
+  align-items: center;
 }
 
 .plate,
@@ -117,6 +119,7 @@ export default {
   border-radius: 50%;
   position: relative;
   top: 0;
+  margin: 2px;
 }
 
 .plate-collar {
