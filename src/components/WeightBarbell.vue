@@ -5,6 +5,7 @@
     <!-- One side of the barbell -->
     <!-- Plate group -->
     <div class="plates">
+      <div v-if="collarApplied" class="plate plate-collar"></div>
       <div
         v-for="(plate, index) in plates.slice().reverse()"
         :key="index"
@@ -15,10 +16,7 @@
           :key="n"
           :class="
             'plate plate-' +
-            (this.unit === 'pounds'
-              ? plate.size + '-lbs'
-              : plate.size + '-kg') +
-            (plate.collar ? ' collar' : '')
+            (this.unit === 'pounds' ? plate.size + '-lbs' : plate.size + '-kg')
           "
         >
           <span class="plate-weight">{{ plate.size }}</span>
@@ -61,19 +59,21 @@ export default {
         (size) => size * (this.unit === "kilograms" ? KG_TO_LBS_RATIO : 1)
       );
     },
+    collarApplied() {
+      return this.unit === "kilograms" && this.totalWeight >= 25;
+    },
     plates() {
       const barWeight = this.unit === "pounds" ? 45 : 20;
-      let remainingWeight = (this.totalWeight - barWeight) / 2;
+      let remainingWeight = this.totalWeight - barWeight;
+      if (this.collarApplied) {
+        remainingWeight -= this.collarWeightKg * 2; //
+      }
+      remainingWeight = remainingWeight / 2;
       const plates = [];
       const plateSizes =
         this.unit === "pounds"
           ? this.adjustedPlateSizesLbs
           : this.adjustedPlateSizesKg;
-
-      if (this.unit === "kilograms" && this.totalWeight >= 25) {
-        remainingWeight -= this.collarWeightKg;
-        plates.push({ size: this.collarWeightKg, count: 1, collar: true }); // add collar
-      }
 
       for (let size of plateSizes) {
         let count = 0;
@@ -93,6 +93,14 @@ export default {
 </script>
 
 <style scoped>
+.barbell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2rem;
+  flex-shrink: 0;
+}
+
 .plates {
   display: flex;
 }
@@ -100,19 +108,31 @@ export default {
 .plate-group {
   position: relative;
   display: flex;
+  flex-direction: row;
 }
 
-.plate {
+.plate,
+.plate-collar {
   border: 1px solid #555;
   border-radius: 50%;
   position: relative;
   top: 0;
 }
 
-.plate.collar {
+.plate-collar {
   height: 20px;
   width: 20px;
-  background-color: rgb(255, 0, 255);
+  background-color: rgb(100, 100, 100);
+}
+
+.plate-collar::before {
+  content: "C";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #ffffff;
+  font-weight: bold;
 }
 
 .plate-weight {
