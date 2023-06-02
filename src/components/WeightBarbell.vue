@@ -24,6 +24,17 @@
       </div>
     </div>
   </div>
+
+  <div class="plates-used">
+    <h3>Plates Used:</h3>
+    <ul>
+      <li v-for="(plate, index) in plates" :key="index">
+        {{ plate.count }} x {{ plate.size
+        }}{{ this.unit === "pounds" ? " lbs" : " kg" }}
+      </li>
+      <li v-if="collarApplied">1 x Collar (2.5 kg)</li>
+    </ul>
+  </div>
 </template>
 
 <script>
