@@ -1,7 +1,11 @@
 <template>
   <div id="app">
     <h1>Barbell Loader</h1>
-    <input v-model.number="weight" type="number" placeholder="Enter weight" />
+    <input
+      v-model.number="weight"
+      type="number"
+      :placeholder="placeholderText"
+    />
     <select v-model="unit">
       <option value="pounds">Pounds</option>
       <option value="kilograms">Kilograms</option>
@@ -26,11 +30,14 @@ export default {
   data() {
     return {
       weight: null,
-      unit: "pounds",
+      unit: "kilograms",
       output: "",
     };
   },
   computed: {
+    placeholderText() {
+      return this.unit === "pounds" ? "Weight in lbs" : "Weight in kgs";
+    },
     convertedWeight() {
       let result;
 
