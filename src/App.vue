@@ -6,13 +6,10 @@
       type="number"
       :placeholder="placeholderText"
     />
-    <select v-model="unit">
-      <option value="pounds">Pounds</option>
-      <option value="kilograms">Kilograms</option>
-    </select>
-    <select v-model.number="barWeight" v-if="unit === 'kilograms'">
-      <option value="20">20 kg Barbell</option>
-      <option value="15">15 kg Barbell</option>
+    <select v-model="barAndUnit">
+      <option value="45-pounds">45 Pound Bar</option>
+      <option value="20-kilograms">20 kg Bar</option>
+      <option value="15-kilograms">15 kg Bar</option>
     </select>
     <button @click="convert">Convert</button>
     <p>{{ output }}</p>
@@ -35,9 +32,8 @@ export default {
   data() {
     return {
       weight: null,
-      unit: "kilograms",
       output: "",
-      barWeight: 20,
+      barAndUnit: "20-kilograms",
     };
   },
   computed: {
@@ -64,6 +60,12 @@ export default {
         return this.weight;
       }
     },
+    barWeight() {
+      return Number(this.barAndUnit.split("-")[0]);
+    },
+    unit() {
+      return this.barAndUnit.split("-")[1];
+    },
   },
   methods: {
     poundsToKilograms(pounds) {
@@ -75,7 +77,7 @@ export default {
     convert() {
       let result;
 
-      if (!isNaN(this.weight) && this.weight >= this.barWeight) {
+      if (!isNaN(this.weight)) {
         if (this.unit === "pounds") {
           result = this.poundsToKilograms(this.weight);
           this.output = `${this.weight} Pounds is equal to ${result.toFixed(
