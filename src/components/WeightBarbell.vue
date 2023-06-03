@@ -51,6 +51,10 @@ export default {
       type: String,
       required: true,
     },
+    barWeight: {
+      type: Number,
+      required: true,
+    },
   },
   data() {
     return {
@@ -74,8 +78,7 @@ export default {
       return this.unit === "kilograms" && this.totalWeight >= 25;
     },
     plates() {
-      const barWeight = this.unit === "pounds" ? 45 : 20;
-      let remainingWeight = this.totalWeight - barWeight;
+      let remainingWeight = this.totalWeight - this.barWeight;
       if (this.collarApplied) {
         remainingWeight -= this.collarWeightKg * 2; //
       }
