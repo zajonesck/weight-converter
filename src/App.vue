@@ -19,15 +19,18 @@
       :barWeight="barWeight"
       v-if="weight && weight > 0"
     />
+    <WeightTracker />
   </div>
 </template>
 
 <script>
 import WeightBarbell from "./components/WeightBarbell.vue";
+import WeightTracker from "./components/WeightTracker.vue";
 
 export default {
   components: {
     WeightBarbell,
+    WeightTracker,
   },
   data() {
     return {
