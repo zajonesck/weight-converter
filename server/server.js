@@ -1,6 +1,10 @@
 const express = require("express");
+const cors = require("cors"); // Don't forget to import the cors package.
 const app = express();
 const { Pool } = require("pg");
+
+// Enable CORS for all routes
+app.use(cors());
 
 const pool = new Pool({
   user: "zacharyjones",
