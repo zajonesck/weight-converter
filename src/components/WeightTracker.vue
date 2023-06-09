@@ -1,12 +1,12 @@
 <template>
-  <!-- This could be a form for adding a new weight entry -->
+  <!-- This is a form for adding a new weight entry -->
   <form @submit.prevent="addWeight">
     <input type="date" v-model="date" required />
     <input type="number" v-model="weight" required />
     <button type="submit">Add weight</button>
   </form>
 
-  <!-- This could be a list of all weight entries for a user -->
+  <!-- This is a list of all weight entries for a user -->
   <ul>
     <li v-for="entry in weightEntries" :key="entry.id">
       {{ entry.date }}: {{ entry.weight }}
@@ -23,6 +23,7 @@ export default {
       date: "",
       weight: "",
       weightEntries: [],
+      userId: 1, // This is correct if you're only working with a single, static user for now
     };
   },
   methods: {
@@ -31,7 +32,7 @@ export default {
         const response = await axios.post("http://localhost:3000/weights", {
           date: this.date,
           weight: this.weight,
-          userId: 1, // replace this with actual user ID
+          userId: this.userId,
         });
 
         this.weightEntries.push(response.data);
@@ -44,7 +45,9 @@ export default {
   },
   async created() {
     try {
-      const response = await axios.get(`http://localhost:3000/weights/${}`); // replace 1 with actual user ID
+      const response = await axios.get(
+        `http://localhost:3000/weights/${this.userId}` // use 'this' to access properties defined in data
+      );
       this.weightEntries = response.data;
     } catch (err) {
       console.error(err);
