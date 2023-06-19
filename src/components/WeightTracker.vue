@@ -23,7 +23,7 @@ export default {
       date: "",
       weight: "",
       weightEntries: [],
-      userId: 1, // This is correct if you're only working with a single, static user for now
+      userId: 1, // what do i change this to its more than one user and its dynamic
     };
   },
   methods: {
