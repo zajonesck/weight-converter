@@ -18,12 +18,17 @@
 import axios from "axios";
 
 export default {
+  props: {
+    userId: {
+      type: Number,
+      required: true,
+    },
+  },
   data() {
     return {
       date: "",
       weight: "",
       weightEntries: [],
-      userId: 1, // what do i change this to its more than one user and its dynamic
     };
   },
   methods: {
@@ -46,7 +51,7 @@ export default {
   async created() {
     try {
       const response = await axios.get(
-        `http://localhost:3000/weights/${this.userId}` // use 'this' to access properties defined in data
+        `http://localhost:3000/weights/${this.userId}`
       );
       this.weightEntries = response.data;
     } catch (err) {

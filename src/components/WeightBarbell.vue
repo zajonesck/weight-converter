@@ -8,15 +8,17 @@
       <div v-if="collarApplied" class="plate plate-collar"></div>
       <div
         v-for="(plate, index) in plates.slice().reverse()"
-        :key="index"
+        :key="'plate-' + index"
         class="plate-group"
       >
         <div
           v-for="n in Array(plate.count).fill()"
-          :key="n"
+          :key="'plate-piece-' + n"
           :class="
             'plate plate-' +
-            (this.unit === 'pounds' ? plate.size + '-lbs' : plate.size + '-kg')
+            (this.unit === 'pounds'
+              ? plate.size.toString().replace('.', '-') + '-lbs'
+              : plate.size.toString().replace('.', '-') + '-kg')
           "
         >
           <span class="plate-weight">{{ plate.size }}</span>
@@ -197,6 +199,12 @@ export default {
   background-color: rgb(100, 100, 100);
 }
 
+.plate-2-5-lbs {
+  height: 20px;
+  width: 20px;
+  background-color: rgb(100, 100, 100);
+}
+
 /* Kilogram plates */
 .plate-25-kg {
   height: 50px;
@@ -235,6 +243,18 @@ export default {
 }
 
 .plate-1\.25-kg {
+  height: 20px;
+  width: 20px;
+  background-color: rgb(100, 100, 100);
+}
+
+.plate-2-5-kg {
+  height: 20px;
+  width: 20px;
+  background-color: rgb(0, 0, 0);
+}
+
+.plate-1-25-kg {
   height: 20px;
   width: 20px;
   background-color: rgb(100, 100, 100);

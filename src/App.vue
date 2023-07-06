@@ -34,10 +34,14 @@ export default {
   },
   data() {
     return {
+      userId: null,
       weight: null,
       output: "",
       barAndUnit: "20-kilograms",
     };
+  },
+  created() {
+    this.userId = localStorage.getItem("userId"); // Fetch userId from localStorage
   },
   computed: {
     placeholderText() {
