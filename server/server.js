@@ -9,9 +9,9 @@ app.use(cors());
 const pool = new Pool({
   user: "zacharyjones",
   host: "localhost",
-  database: "meetrunner",
+  database: "zacharyjones",
   password: "",
-  port: 5432,
+  port: 5431,
 });
 
 app.use(express.json());

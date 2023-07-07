@@ -19,7 +19,7 @@
       :barWeight="barWeight"
       v-if="weight && weight > 0"
     />
-    <WeightTracker />
+    <WeightTracker :userId="userId" />
   </div>
 </template>
 
