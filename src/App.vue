@@ -19,29 +19,22 @@
       :barWeight="barWeight"
       v-if="weight && weight > 0"
     />
-    <WeightTracker :userId="userId" />
   </div>
 </template>
 
 <script>
 import WeightBarbell from "./components/WeightBarbell.vue";
-import WeightTracker from "./components/WeightTracker.vue";
 
 export default {
   components: {
     WeightBarbell,
-    WeightTracker,
   },
   data() {
     return {
-      userId: null,
       weight: null,
       output: "",
       barAndUnit: "20-kilograms",
     };
-  },
-  created() {
-    this.userId = localStorage.getItem("userId"); // Fetch userId from localStorage
   },
   computed: {
     placeholderText() {
