@@ -152,6 +152,7 @@ export default {
   transform: translate(-50%, -50%);
   color: #ffffff;
   font-weight: bold;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
 
 .plate-weight {
@@ -161,6 +162,7 @@ export default {
   transform: translate(-50%, -50%);
   color: #ffffff;
   font-weight: bold;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
 
 .plate-45-lbs {
