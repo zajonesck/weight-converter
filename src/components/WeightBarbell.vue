@@ -1,42 +1,56 @@
-<!-- WeightBarbell.vue -->
-
+<!--WeightBarbell.vue-->
 <template>
-  <div class="barbell">
-    <!-- One side of the barbell -->
-    <!-- Plate group -->
-    <div class="plates">
-      <div v-if="collarApplied" class="plate plate-collar"></div>
-      <div
-        v-for="(plate, index) in plates.slice().reverse()"
-        :key="'plate-' + index"
-        class="plate-group"
-      >
-        <div
-          v-for="n in Array(plate.count).fill()"
-          :key="'plate-piece-' + n"
-          :class="
-            'plate plate-' +
-            (this.unit === 'pounds'
-              ? plate.size.toString().replace('.', '-') + '-lbs'
-              : plate.size.toString().replace('.', '-') + '-kg')
-          "
-        >
-          <span class="plate-weight">{{ plate.size }}</span>
-        </div>
-      </div>
-    </div>
-  </div>
+  <v-container fluid class="p-0">
+    <v-row>
+      <v-col cols="12">
+        <v-card class="pa-2 d-flex justify-center align-center" outlined>
+          <div class="barbell">
+            <!-- One side of the barbell -->
+            <!-- Plate group -->
+            <div class="plates">
+              <div v-if="collarApplied" class="plate plate-collar"></div>
+              <div
+                v-for="(plate, index) in plates.slice().reverse()"
+                :key="'plate-' + index"
+                class="plate-group"
+              >
+                <div
+                  v-for="n in Array(plate.count).fill()"
+                  :key="'plate-piece-' + n"
+                  :class="
+                    'plate plate-' +
+                    (this.unit === 'pounds'
+                      ? plate.size.toString().replace('.', '-') + '-lbs'
+                      : plate.size.toString().replace('.', '-') + '-kg')
+                  "
+                >
+                  <span class="plate-weight">{{ plate.size }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </v-card>
+      </v-col>
+    </v-row>
 
-  <div class="plates-used">
-    <h3>Plates Used:</h3>
-    <ul>
-      <li v-for="(plate, index) in plates" :key="index">
-        {{ plate.count }} x {{ plate.size
-        }}{{ this.unit === "pounds" ? " lbs" : " kg" }}
-      </li>
-      <li v-if="collarApplied">1 x Collar (2.5 kg)</li>
-    </ul>
-  </div>
+    <!-- Moved Plates Used section here -->
+    <v-row>
+      <v-col cols="12">
+        <v-card class="pa-2 d-flex justify-center align-center" outlined>
+          <div class="plates-used">
+            <h3>Plates Used:</h3>
+            <ul>
+              <li v-for="(plate, index) in plates" :key="index">
+                {{ plate.count }} x {{ plate.size
+                }}{{ this.unit === "pounds" ? " lbs" : " kg" }}
+              </li>
+              <li v-if="collarApplied">1 x Collar (2.5 kg)</li>
+            </ul>
+          </div>
+        </v-card>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
@@ -120,6 +134,7 @@ export default {
 .plates {
   display: flex;
   align-items: center;
+  padding: 10px; /* adjust as needed */
 }
 
 .plate-group {

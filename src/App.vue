@@ -1,25 +1,75 @@
 <template>
-  <div id="app">
-    <h1>Barbell Loader</h1>
-    <input
-      v-model.number="weight"
-      type="number"
-      :placeholder="placeholderText"
-    />
-    <select v-model="barAndUnit">
-      <option value="45-pounds">45 Pound Bar</option>
-      <option value="20-kilograms">20 kg Bar</option>
-      <option value="15-kilograms">15 kg Bar</option>
-    </select>
-    <button @click="convert">Convert</button>
-    <p>{{ output }}</p>
-    <weight-barbell
-      :total-weight="weight"
-      :unit="unit"
-      :barWeight="barWeight"
-      v-if="weight && weight > 0"
-    />
-  </div>
+  <v-app id="app" style="height: 100%; width: 100%">
+    <v-container class="py-5 fill-height">
+      <v-row justify="center" align="center">
+        <v-col cols="12">
+          <v-card class="pa-4" color="black" dark>
+            <v-card-title class="text-center headline"
+              >Barbell Loader</v-card-title
+            >
+
+            <v-text-field
+              v-model.number="weight"
+              type="number"
+              :placeholder="placeholderText"
+              color="accent"
+              label="Weight"
+            />
+
+            <v-select
+              v-model="barAndUnit"
+              :items="barOptions"
+              label="Bar and Unit"
+              color="accent"
+            />
+
+            <v-btn color="accent" block @click="convert"> Convert </v-btn>
+
+            <v-card-text class="mt-3" v-if="output">
+              {{ output }}
+            </v-card-text>
+
+            <weight-barbell
+              :total-weight="weight"
+              :unit="unit"
+              :barWeight="barWeight"
+              v-if="weight && weight > 0"
+            />
+          </v-card>
+        </v-col>
+      </v-row>
+    </v-container>
+    <v-footer color="black" class="white--text">
+      <v-container fluid>
+        <v-row justify="space-between" align="center">
+          <v-col cols="auto">
+            <p>&copy; 2023 Zack Jones</p>
+          </v-col>
+
+          <v-col cols="auto" class="d-flex justify-end">
+            <v-btn
+              text
+              color="white"
+              href="https://zackjones.xyz/"
+              class="px-1 py-1 ml-3"
+              target="_blank"
+            >
+              About Zack
+            </v-btn>
+            <v-btn
+              text
+              color="white"
+              href="https://github.com/zajonesck/weight-converter/blob/main/README.md"
+              class="px-1 py-1 ml-3"
+              target="_blank"
+            >
+              About Barbell Loader
+            </v-btn>
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-footer>
+  </v-app>
 </template>
 
 <script>
@@ -34,31 +84,12 @@ export default {
       weight: null,
       output: "",
       barAndUnit: "20-kilograms",
+      barOptions: ["45-pounds", "20-kilograms", "15-kilograms"],
     };
   },
   computed: {
     placeholderText() {
       return this.unit === "pounds" ? "Weight in lbs" : "Weight in kgs";
-    },
-    convertedWeight() {
-      let result;
-
-      if (!isNaN(this.weight)) {
-        if (this.unit === "pounds") {
-          result = this.poundsToKilograms(this.weight);
-        } else {
-          result = this.kilogramsToPounds(this.weight);
-        }
-      }
-
-      return result;
-    },
-    weightInKilograms() {
-      if (this.unit === "pounds") {
-        return this.poundsToKilograms(this.weight);
-      } else {
-        return this.weight;
-      }
     },
     barWeight() {
       return Number(this.barAndUnit.split("-")[0]);
@@ -106,6 +137,10 @@ body {
   background-color: black;
   color: white;
   font-family: Arial, sans-serif; /* example of setting a default font */
+}
+
+.v-footer {
+  padding: 10px 0;
 }
 
 /* You can also set these properties on your root component (e.g., #app for a Vue application) */
