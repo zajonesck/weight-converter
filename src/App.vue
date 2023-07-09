@@ -5,7 +5,7 @@
         <v-col cols="12">
           <v-card class="pa-4" color="black" dark>
             <v-card-title class="text-center headline"
-              >Barbell Loader</v-card-title
+              >Bars Loaded</v-card-title
             >
 
             <v-text-field
