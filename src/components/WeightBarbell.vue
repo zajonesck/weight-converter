@@ -3,10 +3,13 @@
   <v-container fluid class="p-0">
     <v-row>
       <v-col cols="12">
-        <v-card class="pa-2 d-flex justify-center align-center" outlined>
+        <v-card
+          style="overflow: auto"
+          class="pa-2 d-flex justify-center align-center"
+          outlined
+        >
           <div class="barbell">
             <!-- One side of the barbell -->
-            <!-- Plate group -->
             <div class="plates">
               <div v-if="collarApplied" class="plate plate-collar"></div>
               <div
@@ -33,7 +36,6 @@
       </v-col>
     </v-row>
 
-    <!-- Moved Plates Used section here -->
     <v-row>
       <v-col cols="12">
         <v-card class="pa-2 d-flex justify-center align-center" outlined>
@@ -123,14 +125,6 @@ export default {
 </script>
 
 <style scoped>
-.barbell {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 2rem;
-  flex-shrink: 0;
-}
-
 .plates {
   display: flex;
   align-items: center;

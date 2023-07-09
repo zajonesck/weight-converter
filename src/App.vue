@@ -15,6 +15,7 @@
               :placeholder="placeholderText"
               color="accent"
               label="Weight"
+              @input="convert"
             />
 
             <v-select
@@ -22,9 +23,8 @@
               :items="barOptions"
               label="Bar and Unit"
               color="accent"
+              @change="convert"
             />
-
-            <v-btn color="accent" block @click="convert"> Convert </v-btn>
 
             <v-card-text class="mt-3" v-if="output">
               {{ output }}
@@ -74,36 +74,6 @@
         </v-col>
       </v-row>
     </v-container>
-    <!-- <v-footer absolute inset width="auto" class="py-12">
-      <v-container fluid>
-        <v-row justify="space-between" align="center">
-          <v-col cols="auto">
-            <p>&copy; 2023 Zack Jones</p>
-          </v-col>
-
-          <v-col cols="auto" class="d-flex justify-end">
-            <v-btn
-              text
-              color="white"
-              href="https://zackjones.xyz/"
-              class="px-1 py-1 ml-3"
-              target="_blank"
-            >
-              About Zack
-            </v-btn>
-            <v-btn
-              text
-              color="white"
-              href="https://github.com/zajonesck/weight-converter/blob/main/README.md"
-              class="px-1 py-1 ml-3"
-              target="_blank"
-            >
-              About Barbell Loader
-            </v-btn>
-          </v-col>
-        </v-row>
-      </v-container>
-    </v-footer> -->
   </v-app>
 </template>
 
@@ -171,14 +141,12 @@ body {
   margin: 0;
   background-color: black;
   color: white;
-  font-family: Arial, sans-serif; /* example of setting a default font */
+  font-family: Arial, sans-serif;
 }
-
-/* You can also set these properties on your root component (e.g., #app for a Vue application) */
 
 #app {
   justify-content: center;
   align-items: center;
-  width: 100%; /* Adjust this as needed */
+  width: 100%;
 }
 </style>
