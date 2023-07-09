@@ -154,13 +154,6 @@ body {
   justify-content: center;
 }
 
-.main-content {
-  padding-bottom: 20px; /* or height of your footer */
-  background-color: black;
-  color: white;
-  /* add margin as per your need */
-}
-
 .v-container {
   background-color: black !important; /* Your desired color */
 }
