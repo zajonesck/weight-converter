@@ -1,3 +1,4 @@
+<!--App.vue-->
 <template>
   <v-app id="app" style="height: 100%; width: 100%">
     <v-container class="py-5 fill-height main-content">
@@ -143,11 +144,11 @@ body {
   position: fixed;
   bottom: 0;
   width: 100%;
-  height: 20px;
+  height: 10px;
   background-color: black;
   color: white;
   text-align: center;
-  padding: 10px 0;
+  padding: 5px 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -158,7 +159,6 @@ body {
   background-color: black;
   color: white;
   /* add margin as per your need */
-  margin: 20;
 }
 
 .v-container {
