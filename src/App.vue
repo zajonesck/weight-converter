@@ -1,10 +1,10 @@
 <!--App.vue-->
 <template>
-  <v-app id="app" style="height: 100%; width: 100%">
-    <v-container class="py-5 fill-height main-content">
+  <v-app id="app">
+    <v-container style="min-height: calc(100vh - 100px)">
       <v-row justify="center" align="center">
         <v-col cols="12">
-          <v-card class="pa-4" color="black" dark>
+          <v-card class="pa-4" color="black">
             <v-card-title class="text-center headline"
               >Bars Loaded</v-card-title
             >
@@ -40,7 +40,41 @@
         </v-col>
       </v-row>
     </v-container>
-    <v-footer color="black" class="white--text">
+    <v-container fluid>
+      <v-row>
+        <v-col col="12">
+          <v-footer absolute padless class="font-weight-medium" color="black">
+            <v-row justify="space-between" align="center">
+              <v-col cols="auto">
+                <p>&copy; 2023 Zack Jones</p>
+              </v-col>
+
+              <v-col cols="auto" class="d-flex justify-end">
+                <v-btn
+                  text
+                  color="white"
+                  href="https://zackjones.xyz/"
+                  class="px-1 py-1 ml-3"
+                  target="_blank"
+                >
+                  About Zack
+                </v-btn>
+                <v-btn
+                  text
+                  color="white"
+                  href="https://github.com/zajonesck/weight-converter/blob/main/README.md"
+                  class="px-1 py-1 ml-3"
+                  target="_blank"
+                >
+                  About Barbell Loader
+                </v-btn>
+              </v-col>
+            </v-row>
+          </v-footer>
+        </v-col>
+      </v-row>
+    </v-container>
+    <!-- <v-footer absolute inset width="auto" class="py-12">
       <v-container fluid>
         <v-row justify="space-between" align="center">
           <v-col cols="auto">
@@ -69,7 +103,7 @@
           </v-col>
         </v-row>
       </v-container>
-    </v-footer>
+    </v-footer> -->
   </v-app>
 </template>
 
@@ -138,24 +172,6 @@ body {
   background-color: black;
   color: white;
   font-family: Arial, sans-serif; /* example of setting a default font */
-}
-
-.v-footer {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  height: 10px;
-  background-color: black;
-  color: white;
-  text-align: center;
-  padding: 5px 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.v-container {
-  background-color: black !important; /* Your desired color */
 }
 
 /* You can also set these properties on your root component (e.g., #app for a Vue application) */
