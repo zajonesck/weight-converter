@@ -1,6 +1,6 @@
 <template>
   <v-app id="app" style="height: 100%; width: 100%">
-    <v-container class="py-5 fill-height">
+    <v-container class="py-5 fill-height main-content">
       <v-row justify="center" align="center">
         <v-col cols="12">
           <v-card class="pa-4" color="black" dark>
@@ -140,7 +140,29 @@ body {
 }
 
 .v-footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 20px;
+  background-color: black;
+  color: white;
+  text-align: center;
   padding: 10px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.main-content {
+  padding-bottom: 20px; /* or height of your footer */
+  background-color: black;
+  color: white;
+  /* add margin as per your need */
+  margin: 20;
+}
+
+.v-container {
+  background-color: black !important; /* Your desired color */
 }
 
 /* You can also set these properties on your root component (e.g., #app for a Vue application) */
@@ -148,6 +170,6 @@ body {
 #app {
   justify-content: center;
   align-items: center;
-  width: 80%; /* Adjust this as needed */
+  width: 100%; /* Adjust this as needed */
 }
 </style>
