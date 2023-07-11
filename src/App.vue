@@ -6,7 +6,7 @@
         <v-col cols="12">
           <v-card class="pa-4" color="black">
             <v-card-title class="text-center headline"
-              >Bars Loaded</v-card-title
+              >Bar's Loaded</v-card-title
             >
 
             <v-text-field
@@ -83,6 +83,13 @@ import WeightBarbell from "./components/WeightBarbell.vue";
 export default {
   components: {
     WeightBarbell,
+  },
+  name: "MyPage",
+  mounted() {
+    document.title = "Bar's Loaded";
+  },
+  beforeUnmount() {
+    document.title = "My app"; // reset title or set to something default
   },
   data() {
     return {
