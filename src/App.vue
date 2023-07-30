@@ -52,7 +52,6 @@
               <v-col cols="auto" class="d-flex justify-end">
                 <v-btn
                   text
-                  color="white"
                   href="https://zackjones.xyz/"
                   class="px-1 py-1 ml-3"
                   target="_blank"
@@ -61,12 +60,11 @@
                 </v-btn>
                 <v-btn
                   text
-                  color="white"
                   href="https://github.com/zajonesck/weight-converter/blob/main/README.md"
                   class="px-1 py-1 ml-3"
                   target="_blank"
                 >
-                  About Barbell Loader
+                  About Bar's Loaded
                 </v-btn>
               </v-col>
             </v-row>
