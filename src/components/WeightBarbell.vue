@@ -40,7 +40,7 @@
       <v-col cols="12">
         <v-card class="pa-2 d-flex justify-center align-center" outlined>
           <div class="plates-used">
-            <h3>Plates Used:</h3>
+            <h3>One Side Of The Bar</h3>
             <ul>
               <li v-for="(plate, index) in plates" :key="index">
                 {{ plate.count }} x {{ plate.size
