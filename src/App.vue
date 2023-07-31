@@ -21,6 +21,10 @@
                   In the second field, enter the desired weight to put on the
                   bar.
                 </li>
+                <li>
+                  Bar's Loaded automatically rounds down to the closest 5-pound
+                  or 2.5-kilogram increment if the weight isn't already.
+                </li>
               </ul>
             </v-card-text>
             <v-card-actions>
