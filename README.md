@@ -24,7 +24,7 @@ Ready to lift? Bar's Loaded is your gym companion, here to make your weightlifti
 
 # Setup and Installation
 
-Bar's Loaded is built with Vue and uses the Vuetify library for styling. It is deployed via Heroku and the product instance be found at [barsloaded.net](http://www.barsloaded.net/).
+Bar's Loaded is built with Vue and uses the Vuetify library for styling. It is deployed via Heroku. To see the app live in production go to [barsloaded.net](http://www.barsloaded.net/).
 
 To run the app locally, you'll need Node.js installed on your system to run this application.
 
