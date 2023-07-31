@@ -1,13 +1,12 @@
 <!--WeightBarbell.vue-->
 <template>
-  <v-container fluid class="p-0">
+  <v-container>
+    <v-card-title class="text-center headline"
+      >One side of the Barbell
+    </v-card-title>
     <v-row>
-      <v-col cols="12">
-        <v-card
-          style="overflow: auto"
-          class="pa-2 d-flex justify-center align-center"
-          outlined
-        >
+      <v-col>
+        <v-card class="pa-2 d-flex justify-center align-center" outlined>
           <div class="barbell">
             <!-- One side of the barbell -->
             <div class="plates">
@@ -37,10 +36,9 @@
     </v-row>
 
     <v-row>
-      <v-col cols="12">
+      <v-col>
         <v-card class="pa-2 d-flex justify-center align-center" outlined>
           <div class="plates-used">
-            <h3>One Side Of The Bar</h3>
             <ul>
               <li v-for="(plate, index) in plates" :key="index">
                 {{ plate.count }} x {{ plate.size

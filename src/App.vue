@@ -1,14 +1,30 @@
 <!--App.vue-->
 <template>
   <v-app>
+    <v-app-bar app clipped-left>
+      <v-app-bar-title>Bar's Loaded</v-app-bar-title>
+      <v-spacer></v-spacer>
+    </v-app-bar>
     <v-main>
       <v-container style="min-height: calc(100vh - 100px)">
         <v-row justify="center" align="center">
-          <v-col cols="12">
-            <v-card class="pa-4" color="black">
+          <v-col>
+            <v-card>
               <v-card-title class="text-center headline"
-                >Bar's Loaded</v-card-title
-              >
+                >Select the type of weight and bar you're using.
+              </v-card-title>
+
+              <v-select
+                v-model="barAndUnit"
+                :items="barOptions"
+                label="Bar and Unit"
+                color="accent"
+                @change="convert"
+              />
+
+              <v-card-title class="text-center headline"
+                >Enter the desired weight to see what to put on the bar
+              </v-card-title>
 
               <v-text-field
                 v-model.number="weight"
@@ -19,24 +35,15 @@
                 @input="convert"
               />
 
-              <v-select
-                v-model="barAndUnit"
-                :items="barOptions"
-                label="Bar and Unit"
-                color="accent"
-                @change="convert"
-              />
-
-              <v-card-text class="mt-3" v-if="output">
-                {{ output }}
-              </v-card-text>
-
               <weight-barbell
                 :total-weight="weight"
                 :unit="unit"
                 :barWeight="barWeight"
                 v-if="weight && weight > 0"
               />
+              <v-card-text class="mt-3" v-if="output">
+                {{ output }}
+              </v-card-text>
             </v-card>
           </v-col>
         </v-row>
