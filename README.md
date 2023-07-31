@@ -24,7 +24,9 @@ Ready to lift? Bar's Loaded is your gym companion, here to make your weightlifti
 
 # Setup and Installation
 
-You'll need Node.js installed on your system to run this application. Bar's Loaded is a Vue.Js application
+Bar's Loaded is built with Vue and uses the Vuetify library for styling. It is deployed via Heroku and the product instance be found at [barsloaded.net](http://www.barsloaded.net/).
+
+To run the app locally, you'll need Node.js installed on your system to run this application. Bar's Loaded is a Vue.Js application
 
 ### Clone the repository to your local machine.
 
@@ -44,7 +46,7 @@ cd <project-name>
 npm install
 ```
 
-# Once the application is installed, you can use the following commands:
+## Once the application is installed, you can use the following commands:
 
 ### Compiles and hot-reloads for development
 
@@ -64,7 +66,7 @@ npm run build
 npm run lint
 ```
 
-### For more detailed information about the configuration of this project, please see the Vue.js Configuration Reference.
+For more detailed information about the configuration of this project, please see the [Vue.js Configuration Reference](https://cli.vuejs.org/config/).
 
 
 # Contribute
