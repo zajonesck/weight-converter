@@ -1,13 +1,11 @@
 <!--App.vue-->
 <template>
   <v-app>
-    <v-app-bar app clipped-left>
+    <v-app-bar>
       <v-app-bar-title>Bar's Loaded</v-app-bar-title>
       <v-spacer></v-spacer>
-    </v-app-bar>
-    <v-main>
       <div class="text-center">
-        <v-btn @click="dialog = true"> Open Instructions </v-btn>
+        <v-btn @click="dialog = true">Instructions </v-btn>
 
         <v-dialog v-model="dialog" width="auto">
           <v-card>
@@ -28,15 +26,14 @@
               </ul>
             </v-card-text>
             <v-card-actions>
-              <v-btn color="primary" block @click="dialog = false"
-                >Close Dialog</v-btn
-              >
+              <v-btn @click="dialog = false">Close Dialog</v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
       </div>
-
-      <v-container style="min-height: calc(100vh - 100px)">
+    </v-app-bar>
+    <v-main>
+      <v-container style="min-height: calc(100vh - 164px)">
         <v-row justify="center" align="center">
           <v-col>
             <v-card>
