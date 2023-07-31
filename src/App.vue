@@ -50,7 +50,7 @@
       </v-container>
     </v-main>
 
-    <v-footer>
+    <v-footer absolute padless class="font-weight-medium">
       <v-row justify="space-between" align="center">
         <v-col cols="auto">
           <p>&copy; 2023 Zack Jones</p>
