@@ -11,7 +11,7 @@
           <v-col>
             <v-card>
               <v-card-title class="text-center headline"
-                >Select the type of weight and bar you're using.
+                >Select the type of weight and bar you're using
               </v-card-title>
 
               <v-select
