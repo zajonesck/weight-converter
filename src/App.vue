@@ -6,14 +6,36 @@
       <v-spacer></v-spacer>
     </v-app-bar>
     <v-main>
+      <div class="text-center">
+        <v-btn @click="dialog = true"> Open Instructions </v-btn>
+
+        <v-dialog v-model="dialog" width="auto">
+          <v-card>
+            <v-card-text>
+              <ul>
+                <li>
+                  In the first field, select the type of weight and bar you're
+                  using.
+                </li>
+                <li>
+                  In the second field, enter the desired weight to put on the
+                  bar.
+                </li>
+              </ul>
+            </v-card-text>
+            <v-card-actions>
+              <v-btn color="primary" block @click="dialog = false"
+                >Close Dialog</v-btn
+              >
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+      </div>
+
       <v-container style="min-height: calc(100vh - 100px)">
         <v-row justify="center" align="center">
           <v-col>
             <v-card>
-              <v-card-title class="text-center headline"
-                >Select the type of weight and bar you're using.
-              </v-card-title>
-
               <v-select
                 v-model="barAndUnit"
                 :items="barOptions"
@@ -21,10 +43,6 @@
                 color="accent"
                 @change="convert"
               />
-
-              <v-card-title class="text-center headline"
-                >Enter the desired weight to see what to put on the bar.
-              </v-card-title>
 
               <v-text-field
                 v-model.number="weight"
@@ -95,12 +113,14 @@ export default {
   },
   data() {
     return {
+      dialog: false,
       weight: null,
       output: "",
       barAndUnit: "20-kilograms",
       barOptions: ["45-pounds", "20-kilograms", "15-kilograms"],
     };
   },
+
   computed: {
     placeholderText() {
       return this.unit === "pounds" ? "Weight in lbs" : "Weight in kgs";
