@@ -32,6 +32,7 @@
         </v-dialog>
       </div>
     </v-app-bar>
+
     <v-main>
       <v-container style="min-height: calc(100vh - 164px)">
         <v-row justify="center" align="center">
@@ -68,30 +69,24 @@
         </v-row>
       </v-container>
     </v-main>
-
-    <v-footer absolute padless class="font-weight-medium">
-      <v-row justify="space-between" align="center">
-        <v-col cols="auto">
-          <p>&copy; 2023 Zack Jones</p>
-        </v-col>
-
-        <v-col class="d-flex justify-end">
-          <v-btn
-            text
-            href="https://zackjones.xyz/"
-            class="px-1 py-1 ml-3"
-            target="_blank"
-          >
-            About Zack
-          </v-btn>
-          <v-btn
-            text
-            href="https://github.com/zajonesck/weight-converter/blob/main/README.md"
-            class="px-1 py-1 ml-3"
-            target="_blank"
-          >
-            About Bar's Loaded
-          </v-btn>
+    <v-footer>
+      <v-row justify="center" no-gutters>
+        <v-btn
+          href="https://zackjones.xyz/"
+          class="px-1 py-1 ml-3"
+          target="_blank"
+        >
+          About Me
+        </v-btn>
+        <v-btn
+          href="https://github.com/zajonesck/weight-converter/blob/main/README.md"
+          class="px-1 py-1 ml-3"
+          target="_blank"
+        >
+          About Bar's Loaded
+        </v-btn>
+        <v-col class="text-center mt-4" cols="12"
+          >&copy; {{ new Date().getFullYear() }} — <strong>Zack Jones</strong>
         </v-col>
       </v-row>
     </v-footer>
