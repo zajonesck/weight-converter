@@ -1,9 +1,7 @@
 <!--WeightBarbell.vue-->
 <template>
   <v-container>
-    <v-card-title class="text-center headline"
-      >One side of the Barbell
-    </v-card-title>
+    <v-card-title class="text-center headline">Plates </v-card-title>
     <v-row>
       <v-col>
         <v-card class="pa-2 d-flex justify-center align-center" outlined>
