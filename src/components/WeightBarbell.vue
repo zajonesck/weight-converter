@@ -5,33 +5,35 @@
     <v-switch
       v-if="barWeight === 45 && unit === 'pounds'"
       v-model="use35LbPlates"
-      label="Use 35lb plates?"
+      label="35lb plates"
     ></v-switch>
 
     <v-card-title class="text-center headline">Plates </v-card-title>
     <v-row>
       <v-col>
         <v-card class="pa-2 d-flex justify-center align-center" outlined>
-          <div class="barbell">
-            <!-- One side of the barbell -->
-            <div class="plates">
-              <div v-if="collarApplied" class="plate plate-collar"></div>
-              <div
-                v-for="(plate, index) in plates.slice().reverse()"
-                :key="'plate-' + index"
-                class="plate-group"
-              >
+          <div class="scrollable-container">
+            <div class="barbell">
+              <!-- One side of the barbell -->
+              <div class="plates">
+                <div v-if="collarApplied" class="plate plate-collar"></div>
                 <div
-                  v-for="n in Array(plate.count).fill()"
-                  :key="'plate-piece-' + n"
-                  :class="
-                    'plate plate-' +
-                    (this.unit === 'pounds'
-                      ? plate.size.toString().replace('.', '-') + '-lbs'
-                      : plate.size.toString().replace('.', '-') + '-kg')
-                  "
+                  v-for="(plate, index) in plates.slice().reverse()"
+                  :key="'plate-' + index"
+                  class="plate-group"
                 >
-                  <span class="plate-weight">{{ plate.size }}</span>
+                  <div
+                    v-for="n in Array(plate.count).fill()"
+                    :key="'plate-piece-' + n"
+                    :class="
+                      'plate plate-' +
+                      (this.unit === 'pounds'
+                        ? plate.size.toString().replace('.', '-') + '-lbs'
+                        : plate.size.toString().replace('.', '-') + '-kg')
+                    "
+                  >
+                    <span class="plate-weight">{{ plate.size }}</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -133,6 +135,12 @@ export default {
 </script>
 
 <style scoped>
+.scrollable-container {
+  overflow-x: auto;
+  max-height: 300px; /* Adjust this value based on your needs */
+  width: 100%;
+}
+
 .plates {
   display: flex;
   align-items: center;
