@@ -1,6 +1,13 @@
 <!--WeightBarbell.vue-->
 <template>
   <v-container>
+    <v-switch v-model="includeCollars" :label="collarLabel"></v-switch>
+    <v-switch
+      v-if="barWeight === 45 && unit === 'pounds'"
+      v-model="use35LbPlates"
+      label="Use 35lb plates?"
+    ></v-switch>
+
     <v-card-title class="text-center headline">Plates </v-card-title>
     <v-row>
       <v-col>
@@ -52,9 +59,6 @@
 </template>
 
 <script>
-const LBS_TO_KG_RATIO = 0.453592;
-const KG_TO_LBS_RATIO = 2.20462;
-
 export default {
   props: {
     totalWeight: {
@@ -74,36 +78,44 @@ export default {
     return {
       plateSizesKg: [25, 20, 15, 10, 5, 2.5, 1.25],
       plateSizesLbs: [45, 35, 25, 10, 5, 2.5],
-      collarWeightKg: 2.5,
+      includeCollars: false,
+      use35LbPlates: true,
     };
   },
   computed: {
-    adjustedPlateSizesKg() {
-      return this.plateSizesKg.map(
-        (size) => size / (this.unit === "pounds" ? LBS_TO_KG_RATIO : 1)
-      );
+    collarWeight() {
+      return this.unit === "pounds" ? 5 : 2.5;
     },
-    adjustedPlateSizesLbs() {
-      return this.plateSizesLbs.map(
-        (size) => size * (this.unit === "kilograms" ? KG_TO_LBS_RATIO : 1)
-      );
+    collarLabel() {
+      const weight = this.collarWeight;
+      return `Include Collars (${weight}${
+        this.unit === "pounds" ? " lbs" : " kg"
+      } each)`;
     },
     collarApplied() {
-      return this.unit === "kilograms" && this.totalWeight >= 25;
+      return this.includeCollars;
     },
     plates() {
       let remainingWeight = this.totalWeight - this.barWeight;
       if (this.collarApplied) {
-        remainingWeight -= this.collarWeightKg * 2; //
+        remainingWeight -= this.collarWeight * 2;
       }
       remainingWeight = remainingWeight / 2;
       const plates = [];
       const plateSizes =
-        this.unit === "pounds"
-          ? this.adjustedPlateSizesLbs
-          : this.adjustedPlateSizesKg;
+        this.unit === "pounds" ? this.plateSizesLbs : this.plateSizesKg;
 
       for (let size of plateSizes) {
+        // Skip 35lb plates if user has chosen not to use them and both bar and unit are set to 45lbs
+        if (
+          size === 35 &&
+          !this.use35LbPlates &&
+          this.barWeight === 45 &&
+          this.unit === "pounds"
+        ) {
+          continue;
+        }
+
         let count = 0;
         while (remainingWeight >= size) {
           count++;
