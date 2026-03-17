@@ -1,15 +1,9 @@
 <!--WeightBarbell.vue-->
 <template>
   <v-container class="pa-2">
-    <!-- Per-side weight -->
-    <div class="text-center mb-3">
-      <span class="text-body-2 text-medium-emphasis">
-        {{ weightPerSide }} {{ unit === "pounds" ? "lbs" : "kg" }} per side
-      </span>
-    </div>
-
     <!-- Barbell visual -->
-    <v-card variant="outlined" class="mb-4">
+    <transition name="fade-bar" mode="out-in">
+    <v-card :key="plates.map(p=>p.size+p.count).join()" variant="flat" color="transparent" rounded="lg" class="mb-4">
       <div class="scrollable-container">
         <div class="barbell-visual">
           <div class="bar-sleeve hide-mobile"></div>
@@ -40,54 +34,51 @@
         </div>
       </div>
     </v-card>
+    </transition>
 
     <!-- Plate list -->
-    <v-card variant="outlined">
-      <div class="px-4 pt-3 pb-1 text-caption text-medium-emphasis text-uppercase" style="letter-spacing: 0.08em">Per side</div>
-      <v-list density="compact" class="py-1">
-        <v-list-item v-for="(plate, index) in plates" :key="index" class="px-4">
-          <template #prepend>
-            <div :class="['plate-swatch', plateClass(plate.size)]"></div>
-          </template>
-          <v-list-item-title>
-            {{ plate.count }} × {{ plate.size }}{{ unit === "pounds" ? " lbs" : " kg" }}
-          </v-list-item-title>
-        </v-list-item>
-        <v-list-item v-if="collarApplied" class="px-4">
-          <template #prepend>
-            <div class="plate-swatch swatch-collar"></div>
-          </template>
-          <v-list-item-title>
-            1 × Collar ({{ collarWeight }}{{ unit === "pounds" ? " lbs" : " kg" }})
-          </v-list-item-title>
-        </v-list-item>
-        <v-list-item v-if="plates.length === 0 && !collarApplied" class="px-4">
-          <v-list-item-title class="text-medium-emphasis">No plates needed</v-list-item-title>
-        </v-list-item>
-      </v-list>
-    </v-card>
+    <transition name="fade-plates">
+      <div :key="plates.map(p=>p.size+p.count).join()">
+        <v-card variant="flat" color="transparent" rounded="lg" style="overflow: hidden;">
+          <div class="px-4 pt-4 pb-1 text-caption font-weight-bold" style="letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.9; color: #fff;">Per side</div>
+          <v-list density="compact" class="py-1">
+            <v-list-item v-for="(plate, index) in plates" :key="index" class="px-4">
+              <template #prepend>
+                <div :class="['plate-swatch', plateClass(plate.size)]"></div>
+              </template>
+              <v-list-item-title>
+                {{ plate.count }} × {{ plate.size }}{{ unit === "pounds" ? " lbs" : " kg" }}
+              </v-list-item-title>
+            </v-list-item>
+            <v-list-item v-if="collarApplied" class="px-4">
+              <template #prepend>
+                <div class="plate-swatch swatch-collar"></div>
+              </template>
+              <v-list-item-title>
+                1 × Collar ({{ collarWeight }}{{ unit === "pounds" ? " lbs" : " kg" }})
+              </v-list-item-title>
+            </v-list-item>
+            <v-list-item v-if="plates.length === 0 && !collarApplied" class="px-4">
+              <v-list-item-title class="text-medium-emphasis">No plates needed</v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-card>
+      </div>
+    </transition>
 
-    <!-- Remainder warning -->
-    <v-alert
-      v-if="remainder > 0"
-      type="info"
-      variant="tonal"
-      density="compact"
-      class="mt-3"
-    >
-      {{ remainder }} {{ unit === "pounds" ? "lbs" : "kg" }} can't be loaded with available plates
-    </v-alert>
   </v-container>
 </template>
 
 <script>
 export default {
+  emits: ['share'],
   props: {
     totalWeight: { type: Number, required: true },
     unit: { type: String, required: true },
     barWeight: { type: Number, required: true },
     includeCollars: { type: Boolean, default: false },
     use35LbPlates: { type: Boolean, default: true },
+    availablePlates: { type: Object, default: () => ({}) },
   },
   data() {
     return {
@@ -107,26 +98,30 @@ export default {
       return this.includeCollars;
     },
     weightPerSide() {
-      const val = Math.max(0, (this.totalWeight - this.barWeight) / 2);
-      return Math.round(val * 100) / 100;
+      const barOnly = this.totalWeight <= this.barWeight;
+      const collarW = this.collarApplied ? this.collarWeight : 0;
+      if (barOnly) {
+        return this.collarApplied ? collarW : 0;
+      }
+      return Math.round(Math.max(0, (this.totalWeight - this.barWeight) / 2) * 100) / 100;
+    },
+    filteredPlateSizes() {
+      const unitKey = this.unit === "pounds" ? "pounds" : "kilograms";
+      const inv = this.availablePlates[unitKey];
+      const rawSizes = this.unit === "pounds" ? this.plateSizesLbs : this.plateSizesKg;
+      return rawSizes.filter(s => {
+        if (inv === undefined) return true;
+        return inv[s] !== false;
+      });
     },
     plates() {
       let remainingWeight = this.totalWeight - this.barWeight;
       if (this.collarApplied) remainingWeight -= this.collarWeight * 2;
       remainingWeight = remainingWeight / 2;
       const plates = [];
-      const plateSizes =
-        this.unit === "pounds" ? this.plateSizesLbs : this.plateSizesKg;
+      const plateSizes = this.filteredPlateSizes;
 
       for (let size of plateSizes) {
-        if (
-          size === 35 &&
-          !this.use35LbPlates &&
-          this.barWeight === 45 &&
-          this.unit === "pounds"
-        ) {
-          continue;
-        }
         let count = 0;
         while (remainingWeight >= size) {
           count++;
@@ -144,19 +139,22 @@ export default {
       if (this.collarApplied) remainingWeight -= this.collarWeight * 2;
       if (remainingWeight <= 0) return 0;
       remainingWeight = remainingWeight / 2;
-      const plateSizes =
-        this.unit === "pounds" ? this.plateSizesLbs : this.plateSizesKg;
+      const plateSizes = this.filteredPlateSizes;
       for (let size of plateSizes) {
-        if (
-          size === 35 &&
-          !this.use35LbPlates &&
-          this.barWeight === 45 &&
-          this.unit === "pounds"
-        ) continue;
         while (remainingWeight >= size) remainingWeight -= size;
       }
       const total = Math.round(remainingWeight * 2 * 1000) / 1000;
       return total > 0.005 ? total : 0;
+    },
+    // Feature 1: Nearest achievable weight
+    nearestAchievable() {
+      return Math.round((this.totalWeight - this.remainder) * 1000) / 1000;
+    },
+    // Feature 6: Plates summary string for sharing
+    platesSummary() {
+      if (this.plates.length === 0) return 'bar only';
+      const unitLabel = this.unit === 'pounds' ? 'lbs' : 'kg';
+      return this.plates.map(p => `${p.count} × ${p.size}${unitLabel}`).join(', ');
     },
   },
   methods: {
@@ -261,5 +259,25 @@ export default {
   .bar-center {
     min-width: 60px;
   }
+  .barbell-visual {
+    flex-direction: row-reverse;
+  }
+  .plates-side {
+    flex-direction: row-reverse;
+  }
 }
+
+/* Barbell visual fade on weight change */
+.fade-bar-enter-active,
+.fade-bar-leave-active {
+  transition: opacity 0.15s ease;
+}
+.fade-bar-enter-from,
+.fade-bar-leave-to {
+  opacity: 0;
+}
+
+/* Plate list fade on weight change */
+.fade-plates-enter-active { transition: opacity 0.2s ease; }
+.fade-plates-enter-from { opacity: 0; }
 </style>
